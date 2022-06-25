@@ -11,6 +11,7 @@ server.bind((ip_address, port))
 server.listen()
 
 list_of_clients = []
+nicknames =[]
 
 questions = [
     "What is the Italian word for PIE? \n a.Mozarella\n b.Pasty\n c.Patty\n d.Pizza",
@@ -31,33 +32,33 @@ def get_random_answer(conn):
 def remove_question(index):
     questions.pop(index)
     answers.pop(index)
-    
-def clientthread(conn):
+ 
+def clientthread(conn,nickname):
     score= 0
     conn.send('Welcome to this quiz!'.encode('utf-8'))
-    conn.send("You will receive a question. The answer to that question should be one of the options a, b, c or d\n".encode('utf-8'))    conn.send('Good Luck!\n\n'.encode('utf-8'))
+    conn.send("You will receive a question. The answer to that question should be one of the options a, b, c or d\n".encode('utf-8'))    
+    conn.send('Good Luck!\n\n'.encode('utf-8'))
     index, question, answer = get_random_answer(conn)
     while True:
         try:
             message = conn.recv(2048).decode('utf-8')
-            if message:
-                if message.lower() == answer:
-                    score = score + 1
-                    conn.send(f"Bravo! Your score is {score}\n\n".encode('utf-8'))
-                else:
-                    conn.send('Incorrect answer! Better luck next time!\n\n'.encode('utf-8'))
+            if message.split(": ")[-1].lower() == answer:
+                score = score + 1
+                conn.send(f"Bravo! Your score is {score}\n\n".encode('utf-8'))
+            else:
+                conn.send('Incorrect answer! Better luck next time!\n\n'.encode('utf-8'))
                 remove_question(index)
                 index, question, answer = get_random_answer(conn)
-                
-            else:
-                remove(conn)
-        except:
-            continue
+                remove_nickname(nickname) 
+        except Exception as e: 
+            print(str(e)) continue
 def remove(connection):
     if connection in list_of_clients:
         list_of_clients.remove(connection)
-
-nickname 
+        
+def remove_nickname(nickname): 
+    if nickname in nicknames: 
+        nicknames.remove(nickname)
 
 while True:
     conn, addr = server.accept()
