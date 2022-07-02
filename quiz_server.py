@@ -33,7 +33,7 @@ def remove_question(index):
     questions.pop(index)
     answers.pop(index)
  
-def clientthread(conn,nickname):
+def clientthread(conn):
     score= 0
     conn.send('Welcome to this quiz!'.encode('utf-8'))
     conn.send("You will receive a question. The answer to that question should be one of the options a, b, c or d\n".encode('utf-8'))    
@@ -48,8 +48,8 @@ def clientthread(conn,nickname):
             else:
                 conn.send('Incorrect answer! Better luck next time!\n\n'.encode('utf-8'))
                 remove_question(index)
-                index, question, answer = get_random_answer(conn)
-                remove_nickname(nickname) 
+            index, question, answer = get_random_answer(conn)
+            remove_nickname(nickname) 
         except Exception as e: 
             print(str(e)) continue
 def remove(connection):
