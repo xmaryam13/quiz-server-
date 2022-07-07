@@ -11,7 +11,6 @@ server.bind((ip_address, port))
 server.listen()
 
 list_of_clients = []
-nicknames =[]
 
 questions = [
     "What is the Italian word for PIE? \n a.Mozarella\n b.Pasty\n c.Patty\n d.Pizza",
@@ -57,15 +56,9 @@ def remove(connection):
         list_of_clients.remove(connection)
         
 def remove_nickname(nickname): 
-    if nickname in nicknames: 
-        nicknames.remove(nickname)
-
-while True:
+    while True:
     conn, addr = server.accept()
     conn.send('NICKNAME'.encode('utf-8'))
-    nickname = conn.recv(2048).decode('utf-8')
     list_of_clients.append(conn)
-    nicknames.append(nickname)
-    print(nickname+ 'Connected')
     new_thread = Thread(target=clientthread,args=(conn,nickname))
     new_thread.start()
