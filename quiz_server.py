@@ -58,5 +58,6 @@ def remove(connection):
         while True:
             conn, addr = server.accept()
             list_of_clients.append(conn)
-            new_thread = Thread(target=clientthread,args=(conn,nickname))
-            new_thread.start()
+            print (addr[0] + " connected") 
+            new_thread = Thread(target= clientthread,args=(conn)) 
+            new_thread.start().
