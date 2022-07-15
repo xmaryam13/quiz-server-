@@ -55,10 +55,8 @@ def remove(connection):
     if connection in list_of_clients:
         list_of_clients.remove(connection)
         
-def remove_nickname(nickname): 
-    while True:
-    conn, addr = server.accept()
-    conn.send('NICKNAME'.encode('utf-8'))
-    list_of_clients.append(conn)
-    new_thread = Thread(target=clientthread,args=(conn,nickname))
-    new_thread.start()
+        while True:
+            conn, addr = server.accept()
+            list_of_clients.append(conn)
+            new_thread = Thread(target=clientthread,args=(conn,nickname))
+            new_thread.start()
