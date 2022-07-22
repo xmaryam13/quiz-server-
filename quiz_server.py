@@ -48,16 +48,15 @@ def clientthread(conn):
                 conn.send('Incorrect answer! Better luck next time!\n\n'.encode('utf-8'))
                 remove_question(index)
             index, question, answer = get_random_answer(conn)
-            remove_nickname(nickname) 
         except Exception as e: 
-            print(str(e)) continue
+            continue
 def remove(connection):
     if connection in list_of_clients:
         list_of_clients.remove(connection)
         
-        while True:
-            conn, addr = server.accept()
-            list_of_clients.append(conn)
-            print (addr[0] + " connected") 
-            new_thread = Thread(target= clientthread,args=(conn)) 
-            new_thread.start().
+while True:
+    conn, addr = server.accept()
+    list_of_clients.append(conn)
+    print (addr[0] + " connected") 
+    new_thread = Thread(target= clientthread,args=(conn)) 
+    new_thread.start()
