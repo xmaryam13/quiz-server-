@@ -25,7 +25,7 @@ def get_random_answer(conn):
     random_index = random.randint(0,len(questions) - 1)
     random_question = questions[random_index]
     random_answer = answers[random_index]
-    conn.send(random_question.encode('utff-8'))
+    conn.send(random_question.encode('utf-8'))
     return random_index, random_question, random_answer
 
 def remove_question(index):
